@@ -1,0 +1,24 @@
+﻿<h2>List of departments</h2>
+
+<table class="table table-responsive table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Expenditure</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="input-group">
+                    <span class="input-group-addon">Filter departments</span>
+                    <input type="text" class="form-control" placeholder="filter departments">
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="" *ngFor="let d of deps">
+            <td>{{d.department}}</td>
+            <td>{{d.amount}}</td>
+        </tr>
+    </tbody>
+</table>
