@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,6 +33,9 @@ namespace ExpenditureAssistant.Controllers
             {
                 if (await db.Cheques.AnyAsync(x => x.ChequeNumber == chq.ChequeNumber))
                     return BadRequest(new { Message = "Cheque already exists" });
+                var date = DateTime.UtcNow;
+                chq.DateIssued = date;
+                chq.Expenditures.DateDone = date;
                 db.Add(chq);
                 await db.SaveChangesAsync();
                 return Created($"/Cheques/Find?id={chq.ChequesID}", chq);
@@ -60,7 +64,7 @@ namespace ExpenditureAssistant.Controllers
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).ToList() });
             using (var db = new ApplicationDbContext(dco))
             {
-                if (!await db.Cheques.AnyAsync(x => x.ChequesID == chq.id  ))
+                if (!await db.Cheques.AnyAsync(x => x.ChequesID == chq.ChequesID  ))
                     return BadRequest(new { Message = "Department does not exists" });
                 db.Entry(chq).State = EntityState.Deleted;
                 await db.SaveChangesAsync();
