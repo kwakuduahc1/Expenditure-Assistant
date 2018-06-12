@@ -1,5 +1,30 @@
-﻿<h2>List of departments</h2>
+﻿<title>Subjects</title>
+<h1 class="h1">Subjects</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
+    <fieldset>
+        <legend>Add a new department</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="department">Subject</label>
+            <div class="col-md-6" [ngClass]="form.controls.department?.errors ? 'has-error' : 'has-success'">
+                <input type="tel"
+                       class="form-control"
+                       id="department"
+                       title="department name here"
+                       formControlName="department"
+                       placeholder="department">
+            </div>
+            <span [ngClass]="form.controls.department.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.maxlength">The maximum length is {{form.controls.department.errors.maxlength.requiredLength}} characters: Current is {{form.controls.department.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.department.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.required">Enter department</span>
+            <span [ngClass]="form.controls.department.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.minlength">The minimum length is {{form.controls.department.errors.minlength.requiredLength}} characters: Current is {{form.controls.department.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="col-md-offset-2 btn-group">
+            <button [disabled]="form.invalid || hand.processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-addition-sign"> Add Subject</span></button>
+        </div>
+        <div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
+    </fieldset>
+</form>
 
+<h2 class="h2">List of departments</h2>
 <table class="table table-responsive table-hover table-striped">
     <thead>
         <tr>
@@ -17,7 +42,7 @@
     </thead>
     <tbody>
         <tr class="" *ngFor="let d of deps">
-            <td>{{d.department}}</td>
+            <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]">{{d.department}}</a></td>
             <td>{{d.amount}}</td>
         </tr>
     </tbody>

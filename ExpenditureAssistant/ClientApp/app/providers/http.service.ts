@@ -22,6 +22,10 @@ export class HttpService {
         return this.http.post<IDepartment>('/Departments/edit', dep);
     }
 
+    addDep(dep: IDepartment): Observable<IDepartment> {
+        return this.http.post<IDepartment>('/Departments/Create', dep);
+    }
+
     findDep(id: number): Observable<IDepartment> {
         return this.http.get<IDepartment>(`/Departments/Find?id=${id}`);
     }
