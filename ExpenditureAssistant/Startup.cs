@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ElectronNET.API;
+using ElectronNET.API.Entities;
+using ExpenditureAssistant.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,6 +26,11 @@ namespace ExpenditureAssistant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite("Data Source=accountant.db;", x =>
+            {
+                x.SuppressForeignKeyEnforcement(false);
+                x.UseRelationalNulls(true);
+            }));
             services.AddMvc();
         }
 
@@ -53,6 +62,22 @@ namespace ExpenditureAssistant
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            BootStrap();
+        }
+
+        async void BootStrap()
+        {
+            var option = new BrowserWindowOptions
+            {
+                Show = false,
+                Title = "bStudio Teaching Assistant",
+
+
+            };
+            var mainWindow = await Electron.WindowManager.CreateWindowAsync(option);
+            mainWindow.OnReadyToShow += () => mainWindow.Show();
+
         }
     }
 }
