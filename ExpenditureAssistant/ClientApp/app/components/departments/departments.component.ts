@@ -37,4 +37,18 @@ export class DepartmentsComponent {
         }
         this.hand.processing = false;
     }
+
+    delete(dept: IDepartment) {
+        this.hand.processing = true;
+        this.hand.error = false;
+        this.hand.message = "";
+        if (confirm(`Are you sure you want to delete ${dept.department}?`)) {
+            this.http.delDep(dept).subscribe(res => {
+                let ix = this.deps.findIndex(x => x.departmentsID == dept.departmentsID);
+                this.deps.splice(ix, 1);
+                this.hand.message = `${dept.department} was deleted from the list`;
+            }, (err: HttpErrorResponse) => this.hand.handleError(err));
+        }
+        this.hand.processing = false;
+    }
 }

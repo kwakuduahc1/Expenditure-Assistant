@@ -30,6 +30,8 @@
         <tr>
             <th>Department</th>
             <th>Expenditure</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         <tr>
             <th>
@@ -44,6 +46,12 @@
         <tr class="" *ngFor="let d of deps">
             <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]">{{d.department}}</a></td>
             <td>{{d.amount}}</td>
+            <td>
+                <button [routerLink]="['/edit-dept',d.departmentsID]" class="btn btn-primary" [disabled]="hand.processing">Edit</button>
+            </td>
+            <td>
+                <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>
