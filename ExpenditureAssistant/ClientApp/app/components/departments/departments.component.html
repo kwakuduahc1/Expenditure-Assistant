@@ -1,5 +1,5 @@
-﻿<title>Subjects</title>
-<h1 class="h1">Subjects</h1>
+﻿<title>Departments</title>
+<h1 class="h1">Departments manager</h1>
 <form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
     <fieldset>
         <legend>Add a new department</legend>
@@ -18,7 +18,7 @@
             <span [ngClass]="form.controls.department.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.minlength">The minimum length is {{form.controls.department.errors.minlength.requiredLength}} characters: Current is {{form.controls.department.errors.minlength.actualLength}}</span>
         </div>
         <div class="col-md-offset-2 btn-group">
-            <button [disabled]="form.invalid || hand.processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-addition-sign"> Add Subject</span></button>
+            <button [disabled]="form.invalid || hand.processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus-sign"></span> Add Department</button>
         </div>
         <div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
     </fieldset>
@@ -47,10 +47,10 @@
             <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]">{{d.department}}</a></td>
             <td>{{d.amount}}</td>
             <td>
-                <button [routerLink]="['/edit-dept',d.departmentsID]" class="btn btn-primary" [disabled]="hand.processing">Edit</button>
+                <button [routerLink]="['/edit-dept',d.departmentsID]" class="btn btn-primary" [disabled]="hand.processing"><span class="glyphicon glyphicon-edit"></span> Edit</button>
             </td>
             <td>
-                <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing">Delete</button>
+                <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
             </td>
         </tr>
     </tbody>

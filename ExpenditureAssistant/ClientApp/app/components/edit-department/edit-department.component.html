@@ -1,0 +1,27 @@
+﻿<title>Subjects</title>
+<meta name="description" content="Edit {{dep.department}}" /> 
+<h1 class="h1">Department : {{dep.department}}</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="edit(form.value)" class="form-horizontal">
+    <fieldset>
+        <legend>Edit department</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="department">Subject</label>
+            <div class="col-md-6" [ngClass]="form.controls.department?.errors ? 'has-error' : 'has-success'">
+                <input type="tel"
+                       class="form-control"
+                       id="department"
+                       title="department name here"
+                       formControlName="department"
+                       placeholder="department">
+            </div>
+            <span [ngClass]="form.controls.department.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.maxlength">The maximum length is {{form.controls.department.errors.maxlength.requiredLength}} characters: Current is {{form.controls.department.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.department.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.required">Enter department</span>
+            <span [ngClass]="form.controls.department.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.department.errors?.minlength">The minimum length is {{form.controls.department.errors.minlength.requiredLength}} characters: Current is {{form.controls.department.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="col-md-offset-2 btn-group">
+            <button [disabled]="form.invalid || hand.processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-edit"></span> Edit Department</button>
+            <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+        </div>
+        <div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
+    </fieldset>
+</form>

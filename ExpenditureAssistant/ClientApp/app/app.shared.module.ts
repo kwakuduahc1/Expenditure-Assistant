@@ -11,13 +11,16 @@ import { DepartmentsComponent } from './components/departments/departments.compo
 import { DepartmentsResolver } from './resolvers/DepsRes';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpHandler } from './providers/HttpHandler';
+import { EditDepartmentComponent } from './components/edit-department/edit-department.component';
+import { FindDepartmentsResolver } from './resolvers/FindDepRes';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
         HomeComponent,
-        DepartmentsComponent
+        DepartmentsComponent,
+        EditDepartmentComponent
     ],
     imports: [
         CommonModule,
@@ -28,10 +31,11 @@ import { HttpHandler } from './providers/HttpHandler';
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'departments', component: DepartmentsComponent, resolve: { deps: DepartmentsResolver } },
+            { path: 'edit-dept/:id', component: EditDepartmentComponent, resolve: { dep: FindDepartmentsResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers:[HttpService, DepartmentsResolver, HttpHandler]
+    providers: [HttpService, DepartmentsResolver, HttpHandler, FindDepartmentsResolver]
 })
 export class AppModuleShared {
 }
