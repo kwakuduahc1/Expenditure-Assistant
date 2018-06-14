@@ -1,16 +1,20 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
+using ExpenditureAssistant.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenditureAssistant.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly DbContextOptions<ApplicationDbContext> context;
+
+        public HomeController(DbContextOptions<ApplicationDbContext> options) => context = options;
+
+        public async Task<IActionResult> Index()
         {
+            await new ApplicationDbContext(context).Database.EnsureCreatedAsync();
             return View();
         }
 
