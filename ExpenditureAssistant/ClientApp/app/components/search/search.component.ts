@@ -17,6 +17,7 @@ import { IDepartment } from '../../model/IDepartment';
 })
 /** Search component*/
 export class SearchComponent {
+    status: any;
     date = DateTime.local();
     _searchParams: ISearch;
     departments: IDepartment[];

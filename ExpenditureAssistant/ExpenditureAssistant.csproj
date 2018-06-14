@@ -52,9 +52,4 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-  <ItemGroup>
-    <Content Update="electron.manifest.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
 </Project>
