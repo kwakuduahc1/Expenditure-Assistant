@@ -14,6 +14,7 @@ namespace ExpenditureAssistant.Migrations
                     ChequesID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ChequeNumber = table.Column<string>(maxLength: 50, nullable: false),
+                    Status = table.Column<bool>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
                     DateIssued = table.Column<DateTime>(nullable: false)
                 },

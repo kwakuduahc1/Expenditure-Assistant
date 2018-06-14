@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExpenditureAssistant.Model
@@ -12,6 +13,9 @@ namespace ExpenditureAssistant.Model
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string ChequeNumber { get; set; }
+
+        [DefaultValue(false)]
+        public bool Status { get; set; }
 
         [Required]
         public decimal Amount { get; set; }

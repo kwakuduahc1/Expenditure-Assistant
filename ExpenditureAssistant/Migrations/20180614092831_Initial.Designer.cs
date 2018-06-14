@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenditureAssistant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180613215855_Initial")]
+    [Migration("20180614092831_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,8 @@ namespace ExpenditureAssistant.Migrations
                         .HasMaxLength(50);
 
                     b.Property<DateTime>("DateIssued");
+
+                    b.Property<bool>("Status");
 
                     b.HasKey("ChequesID");
 

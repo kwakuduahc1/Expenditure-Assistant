@@ -4,4 +4,5 @@
     dateDone: Date;
     item: string;
     pvNumber: string;
+    status: boolean;
 }

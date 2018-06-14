@@ -25,7 +25,7 @@ namespace ExpenditureAssistant.Controllers
                     .Where(x => x.DepartmentsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month == search.Month)
                     .Take(search.Fetch)
                     .Skip(search.Offset)
-                    .Select(x=>new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber})
+                    .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status })
                     .ToListAsync();
                 return res;
             }

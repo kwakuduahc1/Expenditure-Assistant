@@ -15,6 +15,7 @@ import { EditDepartmentComponent } from './components/edit-department/edit-depar
 import { FindDepartmentsResolver } from './resolvers/FindDepRes';
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { SearchComponent } from './components/search/search.component';
+import { NgPipesModule } from 'ngx-pipes';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { SearchComponent } from './components/search/search.component';
         CommonModule,
         HttpClientModule,
         FormsModule,
+        NgPipesModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -29,6 +29,8 @@ namespace ExpenditureAssistant.Migrations
 
                     b.Property<DateTime>("DateIssued");
 
+                    b.Property<bool>("Status");
+
                     b.HasKey("ChequesID");
 
                     b.ToTable("Cheques");

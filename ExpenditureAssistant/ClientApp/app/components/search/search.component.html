@@ -13,13 +13,19 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="department">Offset</label>
+            <label class="col-sm-2 control-label" for="fetch">Take</label>
             <div class="col-sm-10">
-                <input class="form-control" id="offset" name="offset" formControlName="fetch" />
+                <input class="form-control" id="fetch" name="fetch" formControlName="fetch" />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="department">Year</label>
+            <label class="col-sm-2 control-label" for="offset">Skip</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="offset" name="offset" formControlName="offset" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="year">Year</label>
             <div class="col-sm-10">
                 <select class="form-control" id="year" name="year" formControlName="year">
                     <option *ngFor="let y of years" [ngValue]="y">{{y}}</option>
@@ -27,14 +33,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="department">Month</label>
+            <label class="col-sm-2 control-label" for="month">Month</label>
             <div class="col-sm-10">
                 <select class="form-control" id="month" name="month" formControlName="month">
                     <option *ngFor="let m of months" [ngValue]="m.value">{{m.month}}</option>
                 </select>
             </div>
         </div>
-        <div class="btn-group">
+        <div class="btn-group col-sm-offset-2">
             <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search"></span> Search</button>
         </div>
     </fieldset>
@@ -43,21 +49,76 @@
 <table class="table table-hover table-striped table-responsive">
     <thead>
         <tr>
+            <th>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Item</span>
+                    <input type="text" class="form-control" placeholder="filter list by item" [(ngModel)]="item">
+                </div>
+            </th>
+            <th>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Cheque Number</span>
+                    <input type="text" class="form-control" placeholder="filter list by cheque number" [(ngModel)]="chq">
+                </div>
+            </th>
+            <th>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">PV</span>
+                    <input type="text" class="form-control" placeholder="filter list by payment voucher number" [(ngModel)]="pvn">
+                </div>
+            </th>
+            <th></th>
+            <th>
+                <!--<div class="input-group">
+                    <span class="input-group-addon">Date</span>
+                    <input type="date" class="form-control" placeholder="filter list by date">
+                </div>-->
+            </th>
+            <th>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">
+                                <input type="radio" class="radio-inline" [(ngModel)]="status" value="" aria-label="">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">
+                                <input type="radio" class="radio-inline" [(ngModel)]="status" value="true" aria-label="All transactions that have been paid">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">
+                                <input type="radio" class="radio-inline" [(ngModel)]="status" value="false" aria-label="All transactions not paid">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </th>
+        </tr>
+        <tr>
             <th>Item</th>
             <th>Cheque #</th>
             <th>PV</th>
             <th>Amount</th>
             <th>Date</th>
-
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let h of _hist">
+        <tr *ngFor="let h of _hist |filterBy:['item']:item |filterBy:['chequeNumber']:chq |filterBy:['pvNumber']:pvn |filterBy:['status']:status">
             <td>{{h.item}}</td>
             <td>{{h.chequeNumber}}</td>
             <td>{{h.pvNumber}}</td>
             <td>{{h.amount}}</td>
             <td>{{h.dateDone |date}}</td>
+            <td>
+                <button disabled class="btn btn-block btn-lg" [ngClass]="h.status ? 'btn-success' : 'btn-warning'"></button>
+            </td>
         </tr>
     </tbody>
 </table>
