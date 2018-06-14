@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { ICheques } from '../model/ICheques';
 import { ISearch } from '../model/ISearch';
+import { ISearchResults } from '../model/ISearchResults';
 
 @Injectable()
 export class HttpService {
@@ -36,7 +37,7 @@ export class HttpService {
         return this.http.post<ICheques>("/Cheques/Create", tran);
     }
 
-    search(search: ISearch): Observable<IDepartment[]> {
-        return this.http.post<IDepartment[]>("/Departments/History", search);
+    search(search: ISearch): Observable<ISearchResults[]> {
+        return this.http.post<ISearchResults[]>("/Departments/History", search);
     }
 }

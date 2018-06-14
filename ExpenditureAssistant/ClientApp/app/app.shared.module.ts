@@ -37,7 +37,7 @@ import { SearchComponent } from './components/search/search.component';
             { path: 'departments', component: DepartmentsComponent, resolve: { deps: DepartmentsResolver } },
             { path: 'edit-dept/:id', component: EditDepartmentComponent, resolve: { dep: FindDepartmentsResolver } },
             { path: 'expend', component: TransactionComponent, resolve: { departments: DepartmentsResolver } },
-            { path: 'search', component: SearchComponent },
+            { path: 'search', component: SearchComponent, resolve: { departments: DepartmentsResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
