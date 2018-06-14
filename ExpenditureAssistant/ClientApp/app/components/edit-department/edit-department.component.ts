@@ -39,13 +39,13 @@ export class EditDepartmentComponent {
         this.hand.processing = false;
     }
 
-    delete(dept: IDepartment) {
+    delete() {
         this.hand.processing = true;
         this.hand.error = false;
         this.hand.message = "";
-        if (confirm(`Are you sure you want to delete ${dept.department}?`)) {
-            this.http.delDep(dept).subscribe(res => {
-                this.hand.message = `${dept.department} was deleted from the list`;
+        if (confirm(`Are you sure you want to delete ${this.dep.department}?`)) {
+            this.http.delDep(this.dep).subscribe(res => {
+                this.hand.message = `${this.dep.department} was deleted from the list`;
                 this.router.navigate(['/departments']);
             }, (err: HttpErrorResponse) => this.hand.handleError(err));
         }

@@ -52,19 +52,19 @@
             <th>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">Item</span>
-                    <input type="text" class="form-control" placeholder="filter list by item" [(ngModel)]="item">
+                    <input type="text" class="form-control" placeholder="filter list by item" #item ngModel [ngModelOptions]="{name: 'item',standalone: true}">
                 </div>
             </th>
             <th>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">Cheque Number</span>
-                    <input type="text" class="form-control" placeholder="filter list by cheque number" [(ngModel)]="chq">
+                    <input type="text" class="form-control" placeholder="filter list by cheque number" #chq ngModel [ngModelOptions]="{name: 'chq',standalone: true}">
                 </div>
             </th>
             <th>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">PV</span>
-                    <input type="text" class="form-control" placeholder="filter list by payment voucher number" [(ngModel)]="pvn">
+                    <input type="text" class="form-control" placeholder="filter list by payment voucher number" #pvn ngModel [ngModelOptions]="{name: 'pvn',standalone: true}">
                 </div>
             </th>
             <th></th>
@@ -76,24 +76,21 @@
             </th>
             <th>
                 <div class="row">
-                    <div class="col-sm-1">
+                    <div class="col-md-3">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon">
-                                <input type="radio" class="radio-inline" [(ngModel)]="status" value="" aria-label="">
+                            <span class="input-group-addon">All <input type="radio" class="radio-inline" [(ngModel)]="status" [ngModelOptions]="{name: 'status',standalone: true}" [value]="" aria-label="All transactions">
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-md-3">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon">
-                                <input type="radio" class="radio-inline" [(ngModel)]="status" value="true" aria-label="All transactions that have been paid">
+                            <span class="input-group-addon">Paid <input type="radio" class="radio-inline" [(ngModel)]="status" [ngModelOptions]="{name: 'status',standalone: true}" [value]="true" aria-label="All transactions that have been paid">
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-md-3">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon">
-                                <input type="radio" class="radio-inline" [(ngModel)]="status" value="false" aria-label="All transactions not paid">
+                            <span class="input-group-addon">Not Paid <input type="radio" class="radio-inline" [(ngModel)]="status" [ngModelOptions]="{name: 'status',standalone: true}" [value]="false" aria-label="All transactions not paid">
                             </span>
                         </div>
                     </div>
@@ -110,7 +107,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let h of _hist |filterBy:['item']:item |filterBy:['chequeNumber']:chq |filterBy:['pvNumber']:pvn |filterBy:['status']:status">
+        <tr *ngFor="let h of _hist |filterBy:['item']:item.value |filterBy:['chequeNumber']:chq.value |filterBy:['pvNumber']:pvn.value |filterBy:['status']:status">
             <td>{{h.item}}</td>
             <td>{{h.chequeNumber}}</td>
             <td>{{h.pvNumber}}</td>

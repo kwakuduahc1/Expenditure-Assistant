@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-offset-2 btn-group">
             <button [disabled]="form.invalid || hand.processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-edit"></span> Edit Department</button>
-            <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            <button (click)="delete()" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
         </div>
         <div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
     </fieldset>
