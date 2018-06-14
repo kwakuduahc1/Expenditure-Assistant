@@ -44,13 +44,16 @@
     </thead>
     <tbody>
         <tr class="" *ngFor="let d of deps">
-            <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]">{{d.department}}</a></td>
+            <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]" [routerLinkActive]="['link-active']">{{d.department}}</a></td>
             <td>{{d.amount}}</td>
             <td>
-                <button [routerLink]="['/edit-dept',d.departmentsID]" class="btn btn-primary" [disabled]="hand.processing"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                <button [routerLink]="['/edit-dept',d.departmentsID]" [routerLinkActive]="['link-active']" class="btn btn-primary" [disabled]="hand.processing"><span class="glyphicon glyphicon-edit"></span> Edit</button>
             </td>
             <td>
                 <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            </td>
+            <td>
+                <button [routerLink]="['/expend',d.departmentsID]" [routerLinkActive]="['link-active']" class="btn btn-success" [disabled]="hand.processing"><span class="glyphicon glyphicon-arrow-right"></span> Expend</button>
             </td>
         </tr>
     </tbody>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenditureAssistant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180612161358_Initial")]
+    [Migration("20180613215855_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,8 @@ namespace ExpenditureAssistant.Migrations
                     b.Property<int>("ExpenditureID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("Amount");
+
                     b.Property<int>("ChequesID");
 
                     b.Property<byte[]>("Concurrency")
@@ -94,8 +96,7 @@ namespace ExpenditureAssistant.Migrations
 
                     b.HasKey("ExpenditureID");
 
-                    b.HasIndex("ChequesID")
-                        .IsUnique();
+                    b.HasIndex("ChequesID");
 
                     b.HasIndex("DepartmentsID");
 
@@ -105,8 +106,8 @@ namespace ExpenditureAssistant.Migrations
             modelBuilder.Entity("ExpenditureAssistant.Model.Expenditure", b =>
                 {
                     b.HasOne("ExpenditureAssistant.Model.Cheques", "Cheques")
-                        .WithOne("Expenditures")
-                        .HasForeignKey("ExpenditureAssistant.Model.Expenditure", "ChequesID")
+                        .WithMany("Expenditures")
+                        .HasForeignKey("ChequesID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ExpenditureAssistant.Model.Departments", "Departments")

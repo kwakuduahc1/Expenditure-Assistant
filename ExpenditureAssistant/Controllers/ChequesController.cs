@@ -15,7 +15,7 @@ namespace ExpenditureAssistant.Controllers
         public ChequesController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Cheques.Include(x => x.Expenditures.Departments).Select(x => new { x.Amount, x.ChequeNumber, x.ChequesID, x.DateIssued, x.Expenditures.Departments.Department }).ToListAsync();
+        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Cheques.Select(x => new { x.Amount, x.ChequeNumber, x.ChequesID, x.DateIssued}).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(int id)
@@ -35,10 +35,10 @@ namespace ExpenditureAssistant.Controllers
                     return BadRequest(new { Message = "Cheque already exists" });
                 var date = DateTime.UtcNow;
                 chq.DateIssued = date;
-                chq.Expenditures.DateDone = date;
+                chq.Expenditures.ToList().ForEach(t => t.DateDone = date);
                 db.Add(chq);
                 await db.SaveChangesAsync();
-                return Created($"/Cheques/Find?id={chq.ChequesID}", chq);
+                return Created($"/Cheques/Find?id={chq.ChequesID}", new { chq.Amount, chq.ChequesID, chq.DateIssued, chq.ChequeNumber });
             }
         }
 
@@ -64,7 +64,7 @@ namespace ExpenditureAssistant.Controllers
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).ToList() });
             using (var db = new ApplicationDbContext(dco))
             {
-                if (!await db.Cheques.AnyAsync(x => x.ChequesID == chq.ChequesID  ))
+                if (!await db.Cheques.AnyAsync(x => x.ChequesID == chq.ChequesID))
                     return BadRequest(new { Message = "Department does not exists" });
                 db.Entry(chq).State = EntityState.Deleted;
                 await db.SaveChangesAsync();

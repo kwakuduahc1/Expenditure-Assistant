@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpHandler } from './providers/HttpHandler';
 import { EditDepartmentComponent } from './components/edit-department/edit-department.component';
 import { FindDepartmentsResolver } from './resolvers/FindDepRes';
+import { TransactionComponent } from './components/transaction/transaction.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +22,9 @@ import { FindDepartmentsResolver } from './resolvers/FindDepRes';
         NavMenuComponent,
         HomeComponent,
         DepartmentsComponent,
-        EditDepartmentComponent
+        EditDepartmentComponent,
+        TransactionComponent,
+        SearchComponent
     ],
     imports: [
         CommonModule,
@@ -32,6 +36,8 @@ import { FindDepartmentsResolver } from './resolvers/FindDepRes';
             { path: 'home', component: HomeComponent },
             { path: 'departments', component: DepartmentsComponent, resolve: { deps: DepartmentsResolver } },
             { path: 'edit-dept/:id', component: EditDepartmentComponent, resolve: { dep: FindDepartmentsResolver } },
+            { path: 'expend', component: TransactionComponent, resolve: { departments: DepartmentsResolver } },
+            { path: 'search', component: SearchComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

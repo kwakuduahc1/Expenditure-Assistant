@@ -44,6 +44,7 @@ namespace ExpenditureAssistant.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Item = table.Column<string>(maxLength: 100, nullable: false),
                     ChequesID = table.Column<int>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
                     PVNumber = table.Column<string>(maxLength: 50, nullable: false),
                     DepartmentsID = table.Column<int>(nullable: false),
                     DateDone = table.Column<DateTime>(nullable: false),
@@ -129,8 +130,7 @@ namespace ExpenditureAssistant.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Expenditures_ChequesID",
                 table: "Expenditures",
-                column: "ChequesID",
-                unique: true);
+                column: "ChequesID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Expenditures_DepartmentsID",

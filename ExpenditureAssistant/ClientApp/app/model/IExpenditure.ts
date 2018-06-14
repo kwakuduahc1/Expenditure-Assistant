@@ -10,5 +10,6 @@ export interface IExpenditure {
     chequesID: number;
     concurrency: string;
     cheques: ICheques;
-    departments: IDepartment
+    departments: IDepartment;
+    amount: number;
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExpenditureAssistant.Model
@@ -17,6 +18,6 @@ namespace ExpenditureAssistant.Model
 
         public DateTime DateIssued { get; set; }
 
-        public virtual Expenditure Expenditures { get; set; }
+        public virtual ICollection<Expenditure> Expenditures { get; set; }
     }
 }

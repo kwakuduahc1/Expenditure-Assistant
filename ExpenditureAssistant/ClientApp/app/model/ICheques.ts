@@ -5,5 +5,5 @@ export interface ICheques {
     chequeNumber: string;
     amount: number;
     dateIssued: Date;
-    expenditures: IExpenditure;
+    expenditures: IExpenditure[];
 }

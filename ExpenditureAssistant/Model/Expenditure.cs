@@ -13,11 +13,14 @@ namespace ExpenditureAssistant.Model
         public string Item { get; set; }
 
         [Required]
-        [ForeignKey("Cheques")]
         public int ChequesID { get; set; }
 
+        [Range(0.1,double.MaxValue)]
         [Required]
-        [StringLength(50, MinimumLength =5)]
+        public decimal Amount { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 5)]
         public string PVNumber { get; set; }
 
         [Required]

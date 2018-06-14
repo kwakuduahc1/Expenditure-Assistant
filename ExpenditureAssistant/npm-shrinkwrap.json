@@ -182,6 +182,12 @@
       "integrity": "sha512-2YNL0jXYuN7w07mb1sMZQ6T6zOvGi83v8UbjhBZ8mhvI1VkQ2STU9XOrTFyvWswMyh5rW1evS+e7qltYJvTqPA==",
       "dev": true
     },
+    "@types/luxon": {
+      "version": "0.5.3",
+      "resolved": "https://registry.npmjs.org/@types/luxon/-/luxon-0.5.3.tgz",
+      "integrity": "sha512-YiVw0M9q9CeynfRKhZYaX2/aCXlCIBpM4eARlPXdv+XVoGVb5iPFaZIlKiMUJ8eWKOhlqi8U6GvOAn8yhR4//Q==",
+      "dev": true
+    },
     "@types/webpack-env": {
       "version": "1.13.0",
       "resolved": "https://registry.npmjs.org/@types/webpack-env/-/webpack-env-1.13.0.tgz",
@@ -3839,6 +3845,11 @@
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.2.4.tgz",
       "integrity": "sha1-bGWGGb7PFAMdDQtZSxYELOTcBj0=",
       "dev": true
+    },
+    "luxon": {
+      "version": "1.2.1",
+      "resolved": "https://registry.npmjs.org/luxon/-/luxon-1.2.1.tgz",
+      "integrity": "sha512-ymX+7rWJjYw6jfmtkLqHJmXo+FYC69icT60x+utlzjIOc/U4SNXljUITwH4C1RDP0ZukWf4apHT/d1Ux/4eHPg=="
     },
     "macaddress": {
       "version": "0.2.8",

@@ -1,0 +1,99 @@
+﻿<h1>Add an expenditure transaction</h1>
+<form id="form" name="form" [formGroup]="form" class="form-horizontal">
+    <fieldset>
+        <legend>Add a transaction</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="chqNum">Cheque #</label>
+            <div class="col-md-6" [ngClass]="form.controls.chqNum.touched && form.controls.chqNum?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="chqNum"
+                       title="Cheque number name here"
+                       formControlName="chqNum"
+                       placeholder="Cheque number">
+            </div>
+            <span [ngClass]="form.controls.chqNum.touched && form.controls.chqNum.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.chqNum.touched && form.controls.chqNum.errors?.maxlength">The maximum length is {{form.controls.chqNum.errors.maxlength.requiredLength}} characters: Current is {{form.controls.chqNum.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.chqNum.touched && form.controls.chqNum.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.chqNum.touched && form.controls.chqNum.errors?.required">Enter cheque number</span>
+            <span [ngClass]="form.controls.chqNum.touched && form.controls.chqNum.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.chqNum.touched && form.controls.chqNum.errors?.minlength">The minimum is {{form.controls.chqNum.errors.minlength.requiredLength}} characters: Current is {{form.controls.chqNum.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="amount">Amount</label>
+            <div class="col-md-6" [ngClass]="form.controls.amount.touched && form.controls.amount?.errors ? 'has-error' : 'has-success'">
+                <input type="number"
+                       class="form-control"
+                       id="amount"
+                       title="amount name here"
+                       formControlName="amount"
+                       placeholder="amount on the cheque">
+            </div>
+            <span [ngClass]="form.controls.amount.touched && form.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="form.controls.amount.touched && form.controls.amount.errors?.min">Minimum should be {{form.controls.amount.errors.min.min}}</span>
+            <span [ngClass]="form.controls.amount.touched && form.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.amount.touched && form.controls.amount.errors?.required">Enter amount on the cheque</span>
+        </div>
+    </fieldset>
+</form>
+<h2>Add Expenditure Items</h2>
+<div class="btn-group">
+    <button (click)="addForm()" class="btn btn-primary">Add form</button>
+    <button (click)="removeForm()" class="btn btn-danger">Remove form</button>
+</div>
+<form *ngFor="let f of trans; let ix=index" class="form-horizontal" style="border-style:ridge; margin:10px;" name="{{'form' + ix }}" id="f{{ix}}" [formGroup]="f">
+    <fieldset>
+        <legend>Expenditure {{ix}}</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="pVNumber">Pay Voucher</label>
+            <div class="col-md-6" [ngClass]="f.controls.pVNumber.touched && f.controls.pVNumber?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="pVNumber"
+                       title="PV Number name here"
+                       formControlName="pVNumber"
+                       placeholder="Payment voucher number">
+            </div>
+            <span [ngClass]="f.controls.pVNumber.touched && f.controls.pVNumber.errors?.maxlength ? 'text-danger' : ''" *ngIf="f.controls.pVNumber.touched && f.controls.pVNumber.errors?.maxlength">The maximum length is {{f.controls.pVNumber.errors.maxlength.requiredLength}} characters: Current is {{f.controls.pVNumber.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="f.controls.pVNumber.touched && f.controls.pVNumber.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.pVNumber.touched && f.controls.pVNumber.errors?.required">Enter PV number</span>
+            <span [ngClass]="f.controls.pVNumber.touched && f.controls.pVNumber.errors?.minlength ? 'text-danger' : ''" *ngIf="f.controls.pVNumber.touched && f.controls.pVNumber.errors?.minlength">The minimum length is {{f.controls.pVNumber.errors.minlength.requiredLength}} characters: Current is {{f.controls.pVNumber.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="amount">Amount</label>
+            <div class="col-md-6" [ngClass]="f.controls.amount.touched && f.controls.amount?.errors ? 'has-error' : 'has-success'">
+                <input type="number"
+                       class="form-control"
+                       id="amount"
+                       title="amount here"
+                       formControlName="amount"
+                       placeholder="amount on the cheque">
+            </div>
+            <span [ngClass]="f.controls.amount.touched && f.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.amount.touched && f.controls.amount.errors?.min">Minimum should be {{f.controls.amount.errors.min.min}}</span>
+            <span [ngClass]="f.controls.amount.touched && f.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.amount.touched && f.controls.amount.errors?.required">Enter amount on the PV</span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="item">Item</label>
+            <div class="col-md-6" [ngClass]="f.controls.item.touched && f.controls.item?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="item"
+                       title="item name here"
+                       formControlName="item"
+                       placeholder="item">
+            </div>
+            <span [ngClass]="f.controls.item.touched && f.controls.item.errors?.maxlength ? 'text-danger' : ''" *ngIf="f.controls.item.touched && f.controls.item.errors?.maxlength">The maximum length is {{f.controls.item.errors.maxlength.requiredLength}} characters: Current is {{f.controls.item.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="f.controls.item.touched && f.controls.item.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.item.touched && f.controls.item.errors?.required">Enter item</span>
+            <span [ngClass]="f.controls.item.touched && f.controls.item.errors?.minlength ? 'text-danger' : ''" *ngIf="f.controls.item.touched && f.controls.item.errors?.minlength">The minimum length is {{f.controls.item.errors.minlength.requiredLength}} characters: Current is {{f.controls.item.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="departmentsID">Department</label>
+            <div class="col-md-6" [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID?.errors ? 'has-error' : 'has-success'">
+               <select class="form-control" name="f{{ix}}" id="f{{ix}}" formControlName="departmentsID">
+                   <option *ngFor="let d of departments" [ngValue]="d.departmentsID">{{d.department}}</option>
+               </select>
+            </div>
+            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.max ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.max">The maximum  is {{f.controls.departmentsID.errors.max.requiredLength}} characters: Current is {{f.controls.departmentsID.errors.max.actualLength}}</span>
+            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.required">Enter departmentsID</span>
+            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.min">The minimum is {{f.controls.departmentsID.errors.min.min}} characters: Current is {{f.controls.departmentsID.errors.min.min}}</span>
+        </div>
+    </fieldset>
+</form>
+<div class="col-md-offset-2 btn-group">
+    <button [disabled]="!_formsValid(form,trans) || hand.processing" type="submit" (click)="add(form.value,trans)" [ngClass]="!_formsValid(form,trans) ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-bitcoin"></span> Add Transaction</button>
+</div>
+<div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
