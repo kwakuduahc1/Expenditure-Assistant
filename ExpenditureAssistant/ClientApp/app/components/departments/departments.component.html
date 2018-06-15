@@ -23,7 +23,6 @@
         <div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
     </fieldset>
 </form>
-
 <h2 class="h2">List of departments</h2>
 <table class="table table-responsive table-hover table-striped">
     <thead>
@@ -35,15 +34,15 @@
         </tr>
         <tr>
             <th>
-                <div class="input-group">
-                    <span class="input-group-addon">Filter departments</span>
-                    <input type="text" class="form-control" placeholder="filter departments">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Dept.</span>
+                    <input type="search" class="form-control" placeholder="filter list by department" #dept ngModel [ngModelOptions]="{name: 'dept',standalone: true}">
                 </div>
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr class="" *ngFor="let d of deps">
+        <tr class="" *ngFor="let d of deps |filterBy:['department']:dept.value">
             <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]" [routerLinkActive]="['link-active']">{{d.department}}</a></td>
             <td>{{d.amount}}</td>
             <td>
@@ -51,9 +50,6 @@
             </td>
             <td>
                 <button (click)="delete(d)" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-            </td>
-            <td>
-                <button [routerLink]="['/expend',d.departmentsID]" [routerLinkActive]="['link-active']" class="btn btn-success" [disabled]="hand.processing"><span class="glyphicon glyphicon-arrow-right"></span> Expend</button>
             </td>
         </tr>
     </tbody>

@@ -40,4 +40,8 @@ export class HttpService {
     search(search: ISearch): Observable<ISearchResults[]> {
         return this.http.post<ISearchResults[]>("/Departments/History", search);
     }
+
+    deptSummary(year: number, month: number): Observable<Array<{ department: string, amount: number }>> {
+        return this.http.get<Array<{ department: string, amount: number }>>(`/Departments/Summary?year=${year}&month=${month}`);
+    }
 }

@@ -38,7 +38,7 @@
 </div>
 <form *ngFor="let f of trans; let ix=index" class="form-horizontal" style="border-style:ridge; margin:10px;" name="{{'form' + ix }}" id="f{{ix}}" [formGroup]="f">
     <fieldset>
-        <legend>Expenditure {{ix}}</legend>
+        <legend>Expenditure {{ix+1}}</legend>
         <div class="form-group">
             <label class="col-md-2 control-label" for="pVNumber">Pay Voucher</label>
             <div class="col-md-6" [ngClass]="f.controls.pVNumber.touched && f.controls.pVNumber?.errors ? 'has-error' : 'has-success'">

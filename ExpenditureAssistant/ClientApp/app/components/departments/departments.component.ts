@@ -17,8 +17,7 @@ export class DepartmentsComponent {
     deps: IDepartment[];
     form: FormGroup;
     /** departments ctor */
-
-    constructor(route: ActivatedRoute, private http:HttpService, fb:FormBuilder, public hand:HttpHandler) {
+    constructor(route: ActivatedRoute, private http: HttpService, fb: FormBuilder, public hand: HttpHandler) {
         this.deps = route.snapshot.data['deps'];
         this.form = this.InitForm(fb)
     }

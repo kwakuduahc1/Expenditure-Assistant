@@ -31,10 +31,11 @@ namespace ExpenditureAssistant.Model
                 new Departments { Department = "Stores/Procurement", DepartmentsID = 6 },
                 new Departments { Department = "Kitchen", DepartmentsID = 7 },
                 new Departments { Department = "Estate", DepartmentsID = 8 },
-                new Departments { Department = "Sports", DepartmentsID = 9 },
+                new Departments { Department = "SRC", DepartmentsID = 9 },
                 new Departments { Department = "Entertainment", DepartmentsID = 10 },
                 new Departments { Department = "Exams Unit", DepartmentsID = 11 },
-                new Departments { Department = "Skills Unit", DepartmentsID = 12 }
+                new Departments { Department = "Psycho-motor Unit", DepartmentsID = 12 },
+                new Departments { Department = "Nutrition", DepartmentsID = 13 }
                 ));
             base.OnModelCreating(modelBuilder);
         }

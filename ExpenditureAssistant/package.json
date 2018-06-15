@@ -1,6 +1,7 @@
 {
   "name": "ExpenditureAssistant",
   "private": true,
+  "description": "A project to assist expending officers track their expenditure",
   "version": "0.0.0",
   "scripts": {
     "test": "karma start ClientApp/test/karma.conf.js"
