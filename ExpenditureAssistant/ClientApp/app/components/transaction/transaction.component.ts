@@ -7,6 +7,7 @@ import { HttpHandler } from '../../providers/HttpHandler';
 import { ICheques } from '../../model/ICheques';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IExpenditure } from '../../model/IExpenditure';
+import { IExp_Items } from '../../model/Items';
 
 @Component({
     selector: 'bs-transaction',
@@ -18,10 +19,12 @@ export class TransactionComponent {
     form: FormGroup;
     trans: FormGroup[] = [];
     departments: IDepartment[];
+    items: IExp_Items[];
     /** transaction ctor */
     constructor(route: ActivatedRoute, private router: Router, private http: HttpService, fb: FormBuilder, public hand: HttpHandler) {
         this.form = this.InitForm(fb);
         this.departments = route.snapshot.data['departments'];
+        this.items = route.snapshot.data['items'];
         this.initTrans(fb);
     }
 
@@ -50,7 +53,8 @@ export class TransactionComponent {
             pVNumber: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
             amount: ["", Validators.compose([Validators.required, Validators.min(0.1)])],
             item: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
-            departmentsID: ["", Validators.compose([Validators.required, Validators.min(1)])]
+            departmentsID: ["", Validators.compose([Validators.required, Validators.min(1)])],
+            expenditureItemsID: ["", Validators.compose([Validators.required, Validators.min(1)])]
         });
         this.trans.unshift(t_form);
     }
@@ -69,7 +73,6 @@ export class TransactionComponent {
         let _chq: ICheques = {
             amount: chq.amount, chequeNumber: chq.chqNum, expenditures: exps
         } as ICheques;
-        console.log(this.ver_amounts(_chq,exps));
         if (!this.ver_amounts(_chq, exps)) {
             alert("Amount on cheque must be equal to sum of PVs");
         }

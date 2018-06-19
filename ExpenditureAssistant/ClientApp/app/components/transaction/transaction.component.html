@@ -40,6 +40,17 @@
     <fieldset>
         <legend>Expenditure {{ix+1}}</legend>
         <div class="form-group">
+            <label class="col-md-2 control-label" for="departmentsID">Department</label>
+            <div class="col-md-6" [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID?.errors ? 'has-error' : 'has-success'">
+                <select class="form-control" name="f{{ix}}" id="f{{ix}}" formControlName="departmentsID">
+                    <option *ngFor="let d of departments" [ngValue]="d.departmentsID">{{d.department}}</option>
+                </select>
+            </div>
+            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.max ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.max">The maximum  is {{f.controls.departmentsID.errors.max.requiredLength}} characters: Current is {{f.controls.departmentsID.errors.max.actualLength}}</span>
+            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.required">Enter departmentsID</span>
+            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.min">The minimum is {{f.controls.departmentsID.errors.min.min}} characters: Current is {{f.controls.departmentsID.errors.min.min}}</span>
+        </div>
+        <div class="form-group">
             <label class="col-md-2 control-label" for="pVNumber">Pay Voucher</label>
             <div class="col-md-6" [ngClass]="f.controls.pVNumber.touched && f.controls.pVNumber?.errors ? 'has-error' : 'has-success'">
                 <input type="text"
@@ -81,15 +92,15 @@
             <span [ngClass]="f.controls.item.touched && f.controls.item.errors?.minlength ? 'text-danger' : ''" *ngIf="f.controls.item.touched && f.controls.item.errors?.minlength">The minimum length is {{f.controls.item.errors.minlength.requiredLength}} characters: Current is {{f.controls.item.errors.minlength.actualLength}}</span>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="departmentsID">Department</label>
-            <div class="col-md-6" [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID?.errors ? 'has-error' : 'has-success'">
-               <select class="form-control" name="f{{ix}}" id="f{{ix}}" formControlName="departmentsID">
-                   <option *ngFor="let d of departments" [ngValue]="d.departmentsID">{{d.department}}</option>
-               </select>
+            <label class="col-md-2 control-label" for="expenditureItemsID">Expenditure Item</label>
+            <div class="col-md-6" [ngClass]="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID?.errors ? 'has-error' : 'has-success'">
+                <select class="form-control" name="f{{ix}}" id="f{{ix}}" formControlName="expenditureItemsID">
+                    <option *ngFor="let i of items" [ngValue]="i.expenditureItemsID">{{i.accountNumber}} : {{i.description}}</option>
+                </select>
             </div>
-            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.max ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.max">The maximum  is {{f.controls.departmentsID.errors.max.requiredLength}} characters: Current is {{f.controls.departmentsID.errors.max.actualLength}}</span>
-            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.required">Enter departmentsID</span>
-            <span [ngClass]="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.departmentsID.touched && f.controls.departmentsID.errors?.min">The minimum is {{f.controls.departmentsID.errors.min.min}} characters: Current is {{f.controls.departmentsID.errors.min.min}}</span>
+            <span [ngClass]="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID.errors?.max ? 'text-danger' : ''" *ngIf="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID.errors?.max">The maximum  is {{f.controls.expenditureItemsID.errors.max.requiredLength}} characters: Current is {{f.controls.expenditureItemsID.errors.max.actualLength}}</span>
+            <span [ngClass]="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID.errors?.required">Select an expenditure item</span>
+            <span [ngClass]="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.expenditureItemsID.touched && f.controls.expenditureItemsID.errors?.min">The minimum is {{f.controls.expenditureItemsID.errors.min.min}} characters: Current is {{f.controls.expenditureItemsID.errors.min.min}}</span>
         </div>
     </fieldset>
 </form>

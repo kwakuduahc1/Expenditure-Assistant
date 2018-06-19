@@ -5,4 +5,6 @@
     item: string;
     pvNumber: string;
     status: boolean;
+    accountNumber: number;
+    description: string;
 }

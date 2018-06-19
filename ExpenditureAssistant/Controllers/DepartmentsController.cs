@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,13 @@ namespace ExpenditureAssistant.Controllers
         public DepartmentsController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Departments.Select(x => new { x.DepartmentsID, x.Department, x.Concurrency, Amount = x.Expenditure.Sum(t => t.Amount) }).ToListAsync();
+        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Departments.Select(x => new
+        {
+            x.DepartmentsID,
+            x.Department,
+            x.Concurrency,
+            Amount = x.Expenditure.Where(t => t.DateDone.Year == DateTime.Now.Year && t.DateDone.Month <= DateTime.Now.Month).Sum(t => t.Amount)
+        }).OrderBy(x => x.Department).ToListAsync();
 
         [HttpPost]
         public async Task<IEnumerable> History([FromBody]SearchDepartment search)
@@ -22,10 +29,10 @@ namespace ExpenditureAssistant.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 var res = await db.Expenditures
-                    .Where(x => x.DepartmentsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month >= search.Month)
+                    .Where(x => x.DepartmentsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month == search.Month && x.DateDone.Year <= search.EndYear && x.DateDone.Month <= search.EndMonth)
                     .Take(search.Fetch)
                     .Skip(search.Offset)
-                    .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status })
+                    .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status, x.ExpenditureItems.AccountNumber, x.ExpenditureItems.Description })
                     .ToListAsync();
                 return res;
             }

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ICheques } from '../model/ICheques';
 import { ISearch } from '../model/ISearch';
 import { ISearchResults } from '../model/ISearchResults';
+import { IExp_Items } from '../model/Items';
 
 @Injectable()
 export class HttpService {
@@ -43,5 +44,25 @@ export class HttpService {
 
     deptSummary(year: number, month: number): Observable<Array<{ department: string, amount: number }>> {
         return this.http.get<Array<{ department: string, amount: number }>>(`/Departments/Summary?year=${year}&month=${month}`);
+    }
+
+    getItems(): Observable<IExp_Items[]> {
+        return this.http.get<IExp_Items[]>("/ExpenditureItems/List");
+    }
+
+    addItem(item: IExp_Items): Observable<IExp_Items> {
+        return this.http.post<IExp_Items>("/ExpenditureItems/Create",item)
+    }
+
+    editItem(item: IExp_Items): Observable<IExp_Items> {
+        return this.http.post<IExp_Items>("/ExpenditureItems/Edit", item)
+    }
+
+    findItem(id: number): Observable<IExp_Items> {
+        return this.http.get<IExp_Items>(`/ExpenditureItems/Find?id=${id}`);
+    }
+
+    deleteItem(item: IExp_Items): Observable<IExp_Items> {
+        return this.http.post<IExp_Items>("/ExpenditureItems/Delete", item)
     }
 }

@@ -1,0 +1,73 @@
+﻿<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
+    <fieldset>
+        <legend>Add a new department</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="accountNumber">Account Number</label>
+            <div class="col-md-6" [ngClass]="form.controls.accountNumber?.errors ? 'has-error' : 'has-success'">
+                <input type="number"
+                       class="form-control"
+                       id="accountNumber"
+                       title="accountNumber name here"
+                       formControlName="accountNumber"
+                       placeholder="accountNumber">
+            </div>
+            <span [ngClass]="form.controls.accountNumber.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.maxlength">The maximum length is {{form.controls.accountNumber.errors.maxlength.requiredLength}} characters: Current is {{form.controls.accountNumber.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.accountNumber.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.required">Enter account number</span>
+            <span [ngClass]="form.controls.accountNumber.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.minlength">The minimum length is {{form.controls.accountNumber.errors.minlength.requiredLength}} characters: Current is {{form.controls.accountNumber.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="description">Account Number</label>
+            <div class="col-md-6" [ngClass]="form.controls.description?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="description"
+                       title="description here"
+                       formControlName="description"
+                       placeholder="description of the account number">
+            </div>
+            <span [ngClass]="form.controls.description.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.description.errors?.maxlength">The maximum length is {{form.controls.description.errors.maxlength.requiredLength}} characters: Current is {{form.controls.description.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.description.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.description.errors?.required">Enter account description</span>
+            <span [ngClass]="form.controls.description.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.description.errors?.minlength">The minimum length is {{form.controls.description.errors.minlength.requiredLength}} characters: Current is {{form.controls.description.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="col-md-offset-2 btn-group">
+            <button [disabled]="form.invalid || hand.processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus-sign"></span> Add Item</button>
+        </div>
+        <div [ngClass]="hand.error ? 'alert-danger' : 'alert-info'">{{hand.message}}</div>
+    </fieldset>
+</form>
+<h2></h2>
+<button class="btn btn-default" (click)="refresh()"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+<table class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <th class="">Account Number</th>
+            <th class="">Description</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Account Number</span>
+                    <input type="text" class="form-control" placeholder="filter list by account" #acc ngModel [ngModelOptions]="{name: 'item',standalone: true}">
+                </div>
+            </th>
+            <th>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">Description</span>
+                    <input type="text" class="form-control" placeholder="filter list by description" #desc ngModel [ngModelOptions]="{name: 'chq',standalone: true}">
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of items |filterBy:['accountNumber']:acc.value |filterBy:['description']:desc.value">
+            <td>{{i.accountNumber}}</td>
+            <td>{{i.description}}</td>
+            <td>
+                <button [routerLink]="['/edit-item',i.expenditureItemsID]" [routerLinkActive]="['link-active']" class="btn btn-primary" [disabled]="hand.processing"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            </td>
+            <td>
+                <button (click)="delete(i)" class="btn btn-danger" [disabled]="hand.processing"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

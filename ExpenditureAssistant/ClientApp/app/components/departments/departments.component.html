@@ -4,7 +4,7 @@
     <fieldset>
         <legend>Add a new department</legend>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="department">Subject</label>
+            <label class="col-md-2 control-label" for="department">Department</label>
             <div class="col-md-6" [ngClass]="form.controls.department?.errors ? 'has-error' : 'has-success'">
                 <input type="tel"
                        class="form-control"
@@ -43,7 +43,7 @@
     </thead>
     <tbody>
         <tr class="" *ngFor="let d of deps |filterBy:['department']:dept.value">
-            <td><a class="link-active" [routerLink]="['/view-dept-tran',d.departmentsID]" [routerLinkActive]="['link-active']">{{d.department}}</a></td>
+            <td>{{d.department}}</td>
             <td>{{d.amount}}</td>
             <td>
                 <button [routerLink]="['/edit-dept',d.departmentsID]" [routerLinkActive]="['link-active']" class="btn btn-primary" [disabled]="hand.processing"><span class="glyphicon glyphicon-edit"></span> Edit</button>

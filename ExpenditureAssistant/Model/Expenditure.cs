@@ -25,6 +25,9 @@ namespace ExpenditureAssistant.Model
         [Required]
         public int DepartmentsID { get; set; }
 
+        [Required]
+        public int ExpenditureItemsID { get; set; }
+
         public DateTime DateDone { get; set; }
 
         [Timestamp, ConcurrencyCheck]
@@ -33,5 +36,7 @@ namespace ExpenditureAssistant.Model
         public virtual Cheques Cheques { get; set; }
 
         public virtual Departments Departments { get; set; }
+
+        public virtual ExpenditureItems ExpenditureItems { get; set; }
     }
 }

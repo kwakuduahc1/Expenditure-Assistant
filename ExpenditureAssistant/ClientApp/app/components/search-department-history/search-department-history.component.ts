@@ -9,7 +9,6 @@ import { getLocaleMonthNames, FormStyle, TranslationWidth } from '@angular/commo
 import { ISearchResults } from '../../model/ISearchResults';
 import { IDepartment } from '../../model/IDepartment';
 import { DateService } from '../../providers/date.service';
-import { RangePipe } from 'ngx-pipes';
 
 @Component({
     selector: 'bs-search-department-history',
@@ -24,9 +23,9 @@ export class SearchDepartmentHistoryComponent {
     form: FormGroup;
     _searchParams: ISearch;
 
-    constructor(range: RangePipe, route: ActivatedRoute, private http: HttpService, fb: FormBuilder, public dates: DateService) {
+    constructor(route: ActivatedRoute, private http: HttpService, fb: FormBuilder, public dates: DateService) {
         this._searchParams = {
-            id: 0, fetch: 50, offset: 0, year: this.dates.date.year, month: this.dates.date.month
+            id: 0, fetch: 50, offset: 0, year: this.dates.date.year, month: this.dates.date.month, endMonth: this.dates.date.month + 3, endYear: this.dates.date.year
         };
         this.departments = route.snapshot.data["departments"];
         this.form = this.initForm(fb);
@@ -39,6 +38,8 @@ export class SearchDepartmentHistoryComponent {
             offset: [this._searchParams.offset, Validators.compose([Validators.required, Validators.min(0), Validators.max(50)])],
             year: [this._searchParams.year, Validators.compose([Validators.required, Validators.min(this.dates.date.year - 3), Validators.max(this.dates.date.year + 3)])],
             month: [this._searchParams.month, Validators.compose([Validators.required])],
+            endYear: [this._searchParams.endYear, Validators.compose([Validators.required])],
+            endMonth: [this._searchParams.endMonth, Validators.compose([Validators.required])]
         })
     }
 

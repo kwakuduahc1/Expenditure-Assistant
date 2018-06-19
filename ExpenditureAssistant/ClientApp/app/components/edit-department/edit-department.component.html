@@ -1,11 +1,11 @@
-﻿<title>Subjects</title>
+﻿<title>Edit department</title>
 <meta name="description" content="Edit {{dep.department}}" /> 
 <h1 class="h1">Department : {{dep.department}}</h1>
 <form id="form" name="form" [formGroup]="form" (submit)="edit(form.value)" class="form-horizontal">
     <fieldset>
         <legend>Edit department</legend>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="department">Subject</label>
+            <label class="col-md-2 control-label" for="department">Department</label>
             <div class="col-md-6" [ngClass]="form.controls.department?.errors ? 'has-error' : 'has-success'">
                 <input type="tel"
                        class="form-control"

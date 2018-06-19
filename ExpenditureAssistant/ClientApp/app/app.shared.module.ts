@@ -19,6 +19,10 @@ import { NgPipesModule, RangePipe } from 'ngx-pipes';
 import { SearchDepartmentHistoryComponent } from './components/search-department-history/search-department-history.component';
 import { DateService } from './providers/date.service';
 import { SearchSummaryComponent } from './components/search-summary/search-summary.component';
+import { ItemsComponent } from './components/items/items.component';
+import { ItemsResolver } from './resolvers/ItemRes';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
+import { FindItemResolver } from './resolvers/FindItemRes';
 
 @NgModule({
     declarations: [
@@ -30,7 +34,9 @@ import { SearchSummaryComponent } from './components/search-summary/search-summa
         TransactionComponent,
         SearchComponent,
         SearchDepartmentHistoryComponent,
-        SearchSummaryComponent
+        SearchSummaryComponent,
+        ItemsComponent,
+        EditItemComponent
     ],
     imports: [
         CommonModule,
@@ -43,17 +49,20 @@ import { SearchSummaryComponent } from './components/search-summary/search-summa
             { path: 'home', component: HomeComponent },
             { path: 'departments', component: DepartmentsComponent, resolve: { deps: DepartmentsResolver } },
             { path: 'edit-dept/:id', component: EditDepartmentComponent, resolve: { dep: FindDepartmentsResolver } },
-            { path: 'expend', component: TransactionComponent, resolve: { departments: DepartmentsResolver } },
-            {path: 'search', component: SearchComponent,
+            { path: 'expend', component: TransactionComponent, resolve: { departments: DepartmentsResolver, items:ItemsResolver } },
+            {
+                path: 'search', component: SearchComponent,
                 children: [
                     { path: 'dept-history', component: SearchDepartmentHistoryComponent, resolve: { departments: DepartmentsResolver } },
                     { path: 'summary', component: SearchSummaryComponent, resolve: { departments: DepartmentsResolver } }
                 ]
             },
+            { path: "items", component: ItemsComponent, resolve: { items: ItemsResolver } },
+            { path: 'edit-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [HttpService, DepartmentsResolver, HttpHandler, FindDepartmentsResolver, DateService]
+    providers: [HttpService, DepartmentsResolver, HttpHandler, FindDepartmentsResolver, DateService, ItemsResolver, FindItemResolver]
 })
 export class AppModuleShared {
 }
