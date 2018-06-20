@@ -6,6 +6,10 @@ import { ICheques } from '../model/ICheques';
 import { ISearch } from '../model/ISearch';
 import { ISearchResults } from '../model/ISearchResults';
 import { IExp_Items } from '../model/Items';
+import { ISearchRange } from '../model/ISearchRange';
+import { IDeptSum } from '../model/IDeptSum';
+import { IItemSumRep } from '../model/ItemSumRep';
+import { IExpItemHistory } from '../model/IExpItemHistory';
 
 @Injectable()
 export class HttpService {
@@ -38,12 +42,12 @@ export class HttpService {
         return this.http.post<ICheques>("/Cheques/Create", tran);
     }
 
-    search(search: ISearch): Observable<ISearchResults[]> {
+    deptHistory(search: ISearch): Observable<ISearchResults[]> {
         return this.http.post<ISearchResults[]>("/Departments/History", search);
     }
 
-    deptSummary(year: number, month: number): Observable<Array<{ department: string, amount: number }>> {
-        return this.http.get<Array<{ department: string, amount: number }>>(`/Departments/Summary?year=${year}&month=${month}`);
+    deptSummary(search: ISearchRange): Observable<IDeptSum[]> {
+        return this.http.post<IDeptSum[]>(`/Departments/Summary`, search);
     }
 
     getItems(): Observable<IExp_Items[]> {
@@ -51,7 +55,7 @@ export class HttpService {
     }
 
     addItem(item: IExp_Items): Observable<IExp_Items> {
-        return this.http.post<IExp_Items>("/ExpenditureItems/Create",item)
+        return this.http.post<IExp_Items>("/ExpenditureItems/Create", item)
     }
 
     editItem(item: IExp_Items): Observable<IExp_Items> {
@@ -64,5 +68,13 @@ export class HttpService {
 
     deleteItem(item: IExp_Items): Observable<IExp_Items> {
         return this.http.post<IExp_Items>("/ExpenditureItems/Delete", item)
+    }
+
+    expItemSum(search: ISearchRange): Observable<IItemSumRep[]> {
+        return this.http.post<IItemSumRep[]>(`/ExpenditureItems/Summary`, search);
+    }
+
+    expItemHist(search: ISearch): Observable<IExpItemHistory[]> {
+        return this.http.post<IExpItemHistory[]>("/ExpenditureItems/History", search);
     }
 }

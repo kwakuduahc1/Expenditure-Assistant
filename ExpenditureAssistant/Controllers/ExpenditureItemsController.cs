@@ -20,31 +20,33 @@ namespace ExpenditureAssistant.Controllers
             return list;
         }
 
-        //[HttpPost]
-        //public async Task<IEnumerable> History([FromBody]SearchDepartment search)
-        //{
-        //    using (var db = new ApplicationDbContext(dco))
-        //    {
-        //        var res = await db.Expenditures
-        //            .Where(x => x.DepartmentsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month >= search.Month)
-        //            .Take(search.Fetch)
-        //            .Skip(search.Offset)
-        //            .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status })
-        //            .ToListAsync();
-        //        return res;
-        //    }
-        //}
+        [HttpPost]
+        public async Task<IEnumerable> History([FromBody]SearchDepartment search)
+        {
+            using (var db = new ApplicationDbContext(dco))
+            {
+                var res = await db.Expenditures
+                    .Where(x => x.ExpenditureItemsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month >= search.Month)
+                    .Take(search.Fetch)
+                    .Skip(search.Offset)
+                    .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status, x.ExpenditureItems.AccountNumber, x.ExpenditureItems.Description })
+                    .ToListAsync();
+                return res;
+            }
+        }
 
-        //[HttpGet]
-        //public async Task<IEnumerable> Summary(int year, byte month) =>
-        //    await new ApplicationDbContext(dco).Expenditures
-        //    .Where(x => x.DateDone.Year == year && x.DateDone.Month <= (month + 12))
-        //    .GroupBy(x => x.Departments.Department, (k, v) => new
-        //    {
-        //        Department = k,
-        //        Amount = v.Sum(x => x.Amount)
-        //    })
-        //    .ToListAsync();
+        [HttpPost]
+        public async Task<IEnumerable> Summary([FromBody] SearchRanges search) =>
+                   await new ApplicationDbContext(dco).Expenditures
+                   .Where(x => x.DateDone.Year >= search.StartYear && x.DateDone.Year <= search.EndYear && x.DateDone.Month >= search.StartMonth && x.DateDone.Month <= search.EndMonth)
+                   .GroupBy(x => new { x.ExpenditureItems.AccountNumber, x.ExpenditureItems.Description }, (k, v) => new
+                   {
+                       k.Description,
+                       k.AccountNumber,
+                       Amount = v.Sum(x => x.Amount)
+                   })
+                   .OrderBy(x => x.Description)
+                   .ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(int id)

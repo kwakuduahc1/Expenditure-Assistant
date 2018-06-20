@@ -30,23 +30,25 @@ namespace ExpenditureAssistant.Controllers
             {
                 var res = await db.Expenditures
                     .Where(x => x.DepartmentsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month == search.Month && x.DateDone.Year <= search.EndYear && x.DateDone.Month <= search.EndMonth)
+                    .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status, x.ExpenditureItems.AccountNumber, x.ExpenditureItems.Description })
+                    .OrderBy(x => x.DateDone)
                     .Take(search.Fetch)
                     .Skip(search.Offset)
-                    .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status, x.ExpenditureItems.AccountNumber, x.ExpenditureItems.Description })
                     .ToListAsync();
                 return res;
             }
         }
 
-        [HttpGet]
-        public async Task<IEnumerable> Summary(int year, byte month) =>
+        [HttpPost]
+        public async Task<IEnumerable> Summary([FromBody] SearchRanges search) =>
             await new ApplicationDbContext(dco).Expenditures
-            .Where(x => x.DateDone.Year == year && x.DateDone.Month <= (month + 12))
+            .Where(x => x.DateDone.Year >= search.StartYear && x.DateDone.Year <= search.EndYear && x.DateDone.Month >= search.StartMonth && x.DateDone.Month <= search.EndMonth)
             .GroupBy(x => x.Departments.Department, (k, v) => new
             {
                 Department = k,
                 Amount = v.Sum(x => x.Amount)
             })
+            .OrderBy(x => x.Department)
             .ToListAsync();
 
         [HttpGet]
@@ -60,7 +62,7 @@ namespace ExpenditureAssistant.Controllers
         public async Task<IActionResult> Create([FromBody]Departments dept)
         {
             if (!ModelState.IsValid)
-                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).ToList() });
+                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
             using (var db = new ApplicationDbContext(dco))
             {
                 if (await db.Departments.AnyAsync(x => x.Department == dept.Department))

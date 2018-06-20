@@ -9,15 +9,16 @@ import { DateService } from '../../providers/date.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ISearchRange } from '../../model/ISearchRange';
 import { IDeptSum } from '../../model/IDeptSum';
+import { IItemSumRep } from '../../model/ItemSumRep';
 
 @Component({
-    selector: 'bs-search-summary',
-    templateUrl: './search-summary.component.html',
-    styleUrls: ['./search-summary.component.css']
+    selector: 'bs-item-summary',
+    templateUrl: './item-summary.component.html',
+    styleUrls: ['./item-summary.component.css']
 })
-/** search-summary component*/
-export class SearchSummaryComponent {
-    _hist: IDeptSum[] = [];
+/** item-summary component*/
+export class ItemSummaryComponent {
+    _hist: IItemSumRep[] = [];
     form: FormGroup;
     constructor(route: ActivatedRoute, private http: HttpService, fb: FormBuilder, public dates: DateService) {
         this.form = this.initForm(fb);
@@ -33,6 +34,6 @@ export class SearchSummaryComponent {
     }
 
     search(form: ISearchRange) {
-        this.http.deptSummary(form).subscribe(res => this._hist = res, (err: HttpErrorResponse) => console.log(err));
+        this.http.expItemSum(form).subscribe(res => this._hist = res, (err: HttpErrorResponse) => console.log(err));
     }
 }

@@ -23,6 +23,7 @@ import { ItemsComponent } from './components/items/items.component';
 import { ItemsResolver } from './resolvers/ItemRes';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { FindItemResolver } from './resolvers/FindItemRes';
+import { ItemSummaryComponent } from './components/item-summary/item-summary.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { FindItemResolver } from './resolvers/FindItemRes';
         SearchDepartmentHistoryComponent,
         SearchSummaryComponent,
         ItemsComponent,
-        EditItemComponent
+        EditItemComponent,
+        ItemSummaryComponent
     ],
     imports: [
         CommonModule,
@@ -54,7 +56,8 @@ import { FindItemResolver } from './resolvers/FindItemRes';
                 path: 'search', component: SearchComponent,
                 children: [
                     { path: 'dept-history', component: SearchDepartmentHistoryComponent, resolve: { departments: DepartmentsResolver } },
-                    { path: 'summary', component: SearchSummaryComponent, resolve: { departments: DepartmentsResolver } }
+                    { path: 'summary', component: SearchSummaryComponent, resolve: { departments: DepartmentsResolver } },
+                    { path: 'item-summary', component: ItemSummaryComponent, resolve: { items: ItemsResolver } }
                 ]
             },
             { path: "items", component: ItemsComponent, resolve: { items: ItemsResolver } },

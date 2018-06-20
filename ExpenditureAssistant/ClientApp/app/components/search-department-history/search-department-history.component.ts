@@ -44,7 +44,7 @@ export class SearchDepartmentHistoryComponent {
     }
 
     search(search: ISearch) {
-        this.http.search(search).subscribe(res => this._hist = res, (err: HttpErrorResponse) => console.log(err));
+        this.http.deptHistory(search).subscribe(res => this._hist = res, (err: HttpErrorResponse) => console.log(err));
     }
 
 }

@@ -5,6 +5,7 @@ namespace ExpenditureAssistant.Model
 {
     public class Departments
     {
+        [Key]
         public int DepartmentsID { get; set; }
 
         [Required]

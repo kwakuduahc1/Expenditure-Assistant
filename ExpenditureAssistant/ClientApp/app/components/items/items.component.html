@@ -1,6 +1,6 @@
 ﻿<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
     <fieldset>
-        <legend>Add a new department</legend>
+        <legend>Add a new expenditure item</legend>
         <div class="form-group">
             <label class="col-md-2 control-label" for="accountNumber">Account Number</label>
             <div class="col-md-6" [ngClass]="form.controls.accountNumber?.errors ? 'has-error' : 'has-success'">
@@ -9,14 +9,14 @@
                        id="accountNumber"
                        title="accountNumber name here"
                        formControlName="accountNumber"
-                       placeholder="accountNumber">
+                       placeholder="account number">
             </div>
             <span [ngClass]="form.controls.accountNumber.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.maxlength">The maximum length is {{form.controls.accountNumber.errors.maxlength.requiredLength}} characters: Current is {{form.controls.accountNumber.errors.maxlength.actualLength}}</span>
             <span [ngClass]="form.controls.accountNumber.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.required">Enter account number</span>
             <span [ngClass]="form.controls.accountNumber.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.minlength">The minimum length is {{form.controls.accountNumber.errors.minlength.requiredLength}} characters: Current is {{form.controls.accountNumber.errors.minlength.actualLength}}</span>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="description">Account Number</label>
+            <label class="col-md-2 control-label" for="description">Account Desc.</label>
             <div class="col-md-6" [ngClass]="form.controls.description?.errors ? 'has-error' : 'has-success'">
                 <input type="text"
                        class="form-control"

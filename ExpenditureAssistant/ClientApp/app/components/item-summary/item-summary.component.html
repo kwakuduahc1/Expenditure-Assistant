@@ -42,7 +42,7 @@
 <div [hidden]="_hist.length===0">
     <h2>Search Results</h2>
     <table class="table table-responsive table-bordered table-striped">
-        <caption>List of departments and their expenditure from {{form.controls.year.value}} {{form.controls.month.value}} </caption>
+        <caption>Expenditure items</caption>
         <thead>
             <tr>
                 <th>Department</th>
@@ -51,7 +51,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let h of _hist">
-                <td>{{h.department}}</td>
+                <td>{{h.accountNumber}} : {{h.description}}</td>
                 <td>{{h.amount |currency:'GH¢'}}</td>
             </tr>
         </tbody>
