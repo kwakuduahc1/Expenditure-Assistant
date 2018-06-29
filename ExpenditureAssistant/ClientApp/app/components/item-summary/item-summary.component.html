@@ -45,7 +45,7 @@
         <caption>Expenditure items</caption>
         <thead>
             <tr>
-                <th>Department</th>
+                <th>Expenditure Item</th>
                 <th>Amount</th>
             </tr>
         </thead>
@@ -55,6 +55,12 @@
                 <td>{{h.amount |currency:'GH¢'}}</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <th>{{total() |currency:'GH¢'}}</th>
+            </tr>
+        </tfoot>
     </table>
 </div>
 <div [hidden]="_hist.length>0">

@@ -28,6 +28,9 @@ namespace ExpenditureAssistant.Model
         [Required]
         public int ExpenditureItemsID { get; set; }
 
+        [Required]
+        public DateTime PVDate { get; set; }
+
         public DateTime DateDone { get; set; }
 
         [Timestamp, ConcurrencyCheck]

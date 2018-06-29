@@ -12,4 +12,5 @@ export interface IExpenditure {
     cheques: ICheques;
     departments: IDepartment;
     amount: number;
+    pVDate: Date;
 }

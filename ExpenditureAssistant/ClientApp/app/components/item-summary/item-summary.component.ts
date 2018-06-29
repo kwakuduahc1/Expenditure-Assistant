@@ -36,4 +36,8 @@ export class ItemSummaryComponent {
     search(form: ISearchRange) {
         this.http.expItemSum(form).subscribe(res => this._hist = res, (err: HttpErrorResponse) => console.log(err));
     }
+
+    total() {
+        return this._hist.reduce((p, c) => p + c.amount, 0)
+    }
 }

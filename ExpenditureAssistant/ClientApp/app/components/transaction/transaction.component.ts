@@ -31,7 +31,8 @@ export class TransactionComponent {
     InitForm(fb: FormBuilder) {
         return fb.group({
             chqNum: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
-            amount: ["", Validators.compose([Validators.required, Validators.min(0.1)])]
+            amount: ["", Validators.compose([Validators.required, Validators.min(0.1)])],
+            chequeDate: [new Date(), Validators.compose([Validators.required])]
         });
     }
 
@@ -54,16 +55,18 @@ export class TransactionComponent {
             amount: ["", Validators.compose([Validators.required, Validators.min(0.1)])],
             item: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
             departmentsID: ["", Validators.compose([Validators.required, Validators.min(1)])],
-            expenditureItemsID: ["", Validators.compose([Validators.required, Validators.min(1)])]
+            expenditureItemsID: ["", Validators.compose([Validators.required, Validators.min(1)])],
+            pVDate: [new Date().toString(), Validators.compose([Validators.required])]
         });
         this.trans.unshift(t_form);
     }
 
     ver_amounts(chq: ICheques, exps: IExpenditure[]): boolean {
-        return chq.amount === exps.reduce((p, c) => c.amount + p, 0)
+        var amt = exps.reduce((p, c) => c.amount + p, 0);
+        return amt === chq.amount;
     }
 
-    add(chq: { item: string, chqNum: string, amount: number }, tran_gp: FormGroup[]) {
+    add(chq: { item: string, chqNum: string, amount: number, chequeDate: Date }, tran_gp: FormGroup[]) {
         this.hand.processing = true;
         this.hand.error = false;
         let exps: IExpenditure[] = [];
@@ -71,7 +74,7 @@ export class TransactionComponent {
             exps.unshift(x.value);
         })
         let _chq: ICheques = {
-            amount: chq.amount, chequeNumber: chq.chqNum, expenditures: exps
+            amount: chq.amount, chequeDate: chq.chequeDate, chequeNumber: chq.chqNum, expenditures: exps
         } as ICheques;
         if (!this.ver_amounts(_chq, exps)) {
             alert("Amount on cheque must be equal to sum of PVs");

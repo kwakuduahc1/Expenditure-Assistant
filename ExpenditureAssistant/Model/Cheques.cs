@@ -18,6 +18,9 @@ namespace ExpenditureAssistant.Model
         public bool Status { get; set; }
 
         [Required]
+        public DateTime ChequeDate { get; set; }
+
+        [Required]
         public decimal Amount { get; set; }
 
         public DateTime DateIssued { get; set; }

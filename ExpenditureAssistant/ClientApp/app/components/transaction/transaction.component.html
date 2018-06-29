@@ -29,6 +29,19 @@
             <span [ngClass]="form.controls.amount.touched && form.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="form.controls.amount.touched && form.controls.amount.errors?.min">Minimum should be {{form.controls.amount.errors.min.min}}</span>
             <span [ngClass]="form.controls.amount.touched && form.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.amount.touched && form.controls.amount.errors?.required">Enter amount on the cheque</span>
         </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="chequeDate">Cheque Date</label>
+            <div class="col-md-6" [ngClass]="form.controls.chequeDate.touched && form.controls.chequeDate?.errors ? 'has-error' : 'has-success'">
+                <input type="date"
+                       class="form-control"
+                       id="chequeDate"
+                       title="Date on cheque name here"
+                       formControlName="chequeDate"
+                       placeholder="Date on the cheque">
+            </div>
+            <span [ngClass]="form.controls.chequeDate.touched && form.controls.chequeDate.errors?.min ? 'text-danger' : ''" *ngIf="form.controls.chequeDate.touched && form.controls.chequeDate.errors?.min">Minimum should be {{form.controls.chequeDate.errors.min.min}}</span>
+            <span [ngClass]="form.controls.chequeDate.touched && form.controls.chequeDate.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.chequeDate.touched && form.controls.chequeDate.errors?.required">Enter chequeDate on the cheque</span>
+        </div>
     </fieldset>
 </form>
 <h2>Add Expenditure Items</h2>
@@ -76,6 +89,18 @@
             </div>
             <span [ngClass]="f.controls.amount.touched && f.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.amount.touched && f.controls.amount.errors?.min">Minimum should be {{f.controls.amount.errors.min.min}}</span>
             <span [ngClass]="f.controls.amount.touched && f.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.amount.touched && f.controls.amount.errors?.required">Enter amount on the PV</span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="pVDate">Date</label>
+            <div class="col-md-6" [ngClass]="f.controls.pVDate.touched && f.controls.pVDate?.errors ? 'has-error' : 'has-success'">
+                <input type="date"
+                       class="form-control"
+                       id="pVDate"
+                       title="date of PV"
+                       formControlName="pVDate"
+                       placeholder="Date PV was pre prepared">
+            </div>
+            <span [ngClass]="f.controls.pVDate.touched && f.controls.pVDate.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.pVDate.touched && f.controls.pVDate.errors?.required">Enter date PV was prepared</span>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="item">Item</label>

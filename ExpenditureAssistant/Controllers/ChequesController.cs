@@ -15,7 +15,7 @@ namespace ExpenditureAssistant.Controllers
         public ChequesController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Cheques.Select(x => new { x.Amount, x.ChequeNumber, x.ChequesID, x.DateIssued}).ToListAsync();
+        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Cheques.Select(x => new { x.Amount, x.ChequeNumber, x.ChequesID, x.DateIssued, x.ChequeDate }).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(int id)
@@ -38,7 +38,7 @@ namespace ExpenditureAssistant.Controllers
                 chq.Expenditures.ToList().ForEach(t => t.DateDone = date);
                 db.Add(chq);
                 await db.SaveChangesAsync();
-                return Created($"/Cheques/Find?id={chq.ChequesID}", new { chq.Amount, chq.ChequesID, chq.DateIssued, chq.ChequeNumber });
+                return Created($"/Cheques/Find?id={chq.ChequesID}", new { chq.ChequeDate, chq.Amount, chq.ChequesID, chq.DateIssued, chq.ChequeNumber });
             }
         }
 

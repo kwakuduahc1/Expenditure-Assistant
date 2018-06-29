@@ -6,4 +6,5 @@ export interface ICheques {
     amount: number;
     dateIssued: Date;
     expenditures: IExpenditure[];
+    chequeDate: Date;
 }

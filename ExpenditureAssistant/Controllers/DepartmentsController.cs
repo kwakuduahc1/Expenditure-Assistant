@@ -20,7 +20,7 @@ namespace ExpenditureAssistant.Controllers
             x.DepartmentsID,
             x.Department,
             x.Concurrency,
-            Amount = x.Expenditure.Where(t => t.DateDone.Year == DateTime.Now.Year && t.DateDone.Month <= DateTime.Now.Month).Sum(t => t.Amount)
+            Amount = x.Expenditure.Where(t => t.PVDate.Year == DateTime.Now.Year && t.PVDate.Month <= DateTime.Now.Month).Sum(t => t.Amount)
         }).OrderBy(x => x.Department).ToListAsync();
 
         [HttpPost]
@@ -29,7 +29,7 @@ namespace ExpenditureAssistant.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 var res = await db.Expenditures
-                    .Where(x => x.DepartmentsID == search.ID && x.DateDone.Year == search.Year && x.DateDone.Month == search.Month && x.DateDone.Year <= search.EndYear && x.DateDone.Month <= search.EndMonth)
+                    .Where(x => x.DepartmentsID == search.ID && x.PVDate.Year == search.Year && x.PVDate.Month == search.Month && x.PVDate.Year <= search.EndYear && x.PVDate.Month <= search.EndMonth)
                     .Select(x => new { x.DateDone, x.Amount, x.Cheques.ChequeNumber, x.Item, x.PVNumber, x.Cheques.Status, x.ExpenditureItems.AccountNumber, x.ExpenditureItems.Description })
                     .OrderBy(x => x.DateDone)
                     .Take(search.Fetch)
@@ -42,7 +42,7 @@ namespace ExpenditureAssistant.Controllers
         [HttpPost]
         public async Task<IEnumerable> Summary([FromBody] SearchRanges search) =>
             await new ApplicationDbContext(dco).Expenditures
-            .Where(x => x.DateDone.Year >= search.StartYear && x.DateDone.Year <= search.EndYear && x.DateDone.Month >= search.StartMonth && x.DateDone.Month <= search.EndMonth)
+            .Where(x => x.PVDate.Year >= search.StartYear && x.PVDate.Year <= search.EndYear && x.PVDate.Month >= search.StartMonth && x.PVDate.Month <= search.EndMonth)
             .GroupBy(x => x.Departments.Department, (k, v) => new
             {
                 Department = k,
